@@ -13,7 +13,7 @@ go run main.go
 ## Example
 * You can use the following code to connect to the server and subscribe to a topic:
 ```javascript
-const ws = new WebSocket('ws://localhost:8080');
+const ws = new WebSocket('ws://localhost:8080/ws');
 ws.onopen = () => {
   ws.send(JSON.stringify({
     type: 'SUBSCRIBE',
