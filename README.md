@@ -16,7 +16,7 @@ go run main.go
 const ws = new WebSocket('ws://localhost:8080/ws');
 ws.onopen = () => {
   ws.send(JSON.stringify({
-    type: 'SUBSCRIBE',
+    action: 'SUBSCRIBE',
     topic: 'test',
   }));
 };
@@ -28,7 +28,7 @@ ws.onmessage = (msg) => {
 * You can publish a message to a topic by sending a message to the server:
 ```javascript
 ws.send(JSON.stringify({
-  type: 'PUBLISH',
+  action: 'PUBLISH',
   topic: 'test',
   message: 'Hello World!',
 }));
@@ -37,7 +37,7 @@ ws.send(JSON.stringify({
 * You can unsubscribe from a topic by sending a message to the server:
 ```javascript
 ws.send(JSON.stringify({
-  type: 'UNSUBSCRIBE',
+  action: 'UNSUBSCRIBE',
   topic: 'test',
 }));
 ```
@@ -45,7 +45,7 @@ ws.send(JSON.stringify({
 * You can broadcast a message to all the clients by sending a message to the server:
 ```javascript
 ws.send(JSON.stringify({
-  type: 'BROADCASTALL',
+  action: 'BROADCASTALL',
   message: 'Hello World!',
 }));
 ```
