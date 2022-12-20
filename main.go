@@ -26,7 +26,7 @@ var logger zerolog.Logger
 
 // env variables
 var (
-	port string
+	port = "8080"
 )
 
 func init() {
@@ -34,16 +34,10 @@ func init() {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	logger = zerolog.New(os.Stdout).With().Timestamp().Logger()
 
-	if port == "" {
-		port = "8080"
-	}
+	godotenv.Load()
 
-	if err := godotenv.Load(); err != nil {
-		logger.Error().Err(err).Msg("Error while loading .env file")
-	}
-
-	if os.Getenv("PORT") != "" {
-		port = os.Getenv("PORT")
+	if p := os.Getenv("PORT"); p != "" {
+		port = p
 	}
 }
 
@@ -58,8 +52,8 @@ func main() {
 func run(ctx context.Context) error {
 	logger := zerolog.Ctx(ctx)
 
-	// Create a new instance of the server
-	pubSubManager := wspubsub.New()
+	// Create a new pubsub manager instance
+	pubSubManager := wspubsub.New(nil)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {

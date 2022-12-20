@@ -14,10 +14,14 @@ github.com/metinorak/varto v0.0.0-20221217234943-eb33cf436b26 h1:XdwYIsqoYLOcNVj
 github.com/metinorak/varto v0.0.0-20221217234943-eb33cf436b26/go.mod h1:q2iggAqAJobtow9JTMzYRhHzebdGwQCs42/9UmPTP8E=
 github.com/metinorak/varto v0.0.0-20221218115507-df7080dd672f h1:JVKR34Uko6BT06Wtwt2DZ0QuvNNwdNtmm2hqvS86Nps=
 github.com/metinorak/varto v0.0.0-20221218115507-df7080dd672f/go.mod h1:q2iggAqAJobtow9JTMzYRhHzebdGwQCs42/9UmPTP8E=
+github.com/metinorak/varto v0.0.0-20221218203204-11de43bd9ba9 h1:mSOenS2yKdivXNKWWasiobhgzRXDbuU/Tox5gO/bG14=
+github.com/metinorak/varto v0.0.0-20221218203204-11de43bd9ba9/go.mod h1:q2iggAqAJobtow9JTMzYRhHzebdGwQCs42/9UmPTP8E=
 github.com/metinorak/wspubsub v0.0.0-20221217235106-47c379fe802f h1:llOOffl9//4fncBrnDS7ElLfMdME4uBVuQ3yINTOX2g=
 github.com/metinorak/wspubsub v0.0.0-20221217235106-47c379fe802f/go.mod h1:qVBmGmDZpvJpsIxSf9qI87QLUOncU6X6X3lM1/gvrv8=
 github.com/metinorak/wspubsub v0.0.0-20221218115612-f226d39d51fb h1:OkLKrSK8p+6s3ZjC5+JV5+QT7738dEHEkrlCPpqjBhE=
 github.com/metinorak/wspubsub v0.0.0-20221218115612-f226d39d51fb/go.mod h1:34CxF7zQUJJhTIDQWsWt6vBFHuhK07NWcIUzs+RDRhg=
+github.com/metinorak/wspubsub v0.0.0-20221220212351-a5e435678908 h1:LXMVNwAnUD07e8kNxJrO7HAazcyKl158iiH2eCTbyD4=
+github.com/metinorak/wspubsub v0.0.0-20221220212351-a5e435678908/go.mod h1:7wVKJutynYscRpcahrxzotZizL+jgB0rhiunPADt5bU=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

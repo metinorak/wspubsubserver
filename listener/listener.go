@@ -10,7 +10,7 @@ import (
 	"github.com/rs/zerolog"
 )
 
-func ListenConnection(ctx context.Context, conn *websocket.Conn, pubSubManager *wspubsub.PubSub) {
+func ListenConnection(ctx context.Context, conn *websocket.Conn, pubSubManager *wspubsub.VartoWS) {
 	logger := zerolog.Ctx(ctx)
 
 	for {
@@ -29,9 +29,9 @@ func ListenConnection(ctx context.Context, conn *websocket.Conn, pubSubManager *
 
 		switch payload.Action {
 		case "SUBSCRIBE":
-			pubSubManager.Subscribe(payload.Topic, conn)
+			pubSubManager.Subscribe(conn, payload.Topic)
 		case "UNSUBSCRIBE":
-			pubSubManager.Unsubscribe(payload.Topic, conn)
+			pubSubManager.Unsubscribe(conn, payload.Topic)
 		case "PUBLISH":
 			pubSubManager.Publish(payload.Topic, []byte(payload.Message))
 		case "BROADCASTALL":
