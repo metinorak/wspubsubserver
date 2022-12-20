@@ -22,6 +22,8 @@ github.com/metinorak/wspubsub v0.0.0-20221218115612-f226d39d51fb h1:OkLKrSK8p+6s
 github.com/metinorak/wspubsub v0.0.0-20221218115612-f226d39d51fb/go.mod h1:34CxF7zQUJJhTIDQWsWt6vBFHuhK07NWcIUzs+RDRhg=
 github.com/metinorak/wspubsub v0.0.0-20221220212351-a5e435678908 h1:LXMVNwAnUD07e8kNxJrO7HAazcyKl158iiH2eCTbyD4=
 github.com/metinorak/wspubsub v0.0.0-20221220212351-a5e435678908/go.mod h1:7wVKJutynYscRpcahrxzotZizL+jgB0rhiunPADt5bU=
+github.com/metinorak/wspubsub v0.0.0-20221220213334-ba5ede005712 h1:ftKnPn15VfagdDQiBmwXqAw2OqCMb/YJROOy6IZtNG8=
+github.com/metinorak/wspubsub v0.0.0-20221220213334-ba5ede005712/go.mod h1:7wVKJutynYscRpcahrxzotZizL+jgB0rhiunPADt5bU=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

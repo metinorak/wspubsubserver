@@ -2,7 +2,7 @@ module github.com/metinorak/wspubsubserver
 
 go 1.19
 
-require github.com/metinorak/wspubsub v0.0.0-20221220212351-a5e435678908
+require github.com/metinorak/wspubsub v0.0.0-20221220213334-ba5ede005712
 
 require (
 	github.com/mattn/go-colorable v0.1.12 // indirect
