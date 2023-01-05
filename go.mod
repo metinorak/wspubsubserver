@@ -2,7 +2,7 @@ module github.com/metinorak/wspubsubserver
 
 go 1.19
 
-require github.com/metinorak/wspubsub v0.0.0-20221220213334-ba5ede005712
+require github.com/metinorak/wspubsub v0.0.0-20230105184322-2537919496cf
 
 require (
 	github.com/mattn/go-colorable v0.1.12 // indirect
@@ -14,6 +14,6 @@ require (
 require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/joho/godotenv v1.4.0
-	github.com/metinorak/varto v0.0.0-20221218203204-11de43bd9ba9 // indirect
+	github.com/metinorak/varto v0.0.0-20230105184204-2b098978bc1b // indirect
 	github.com/rs/zerolog v1.28.0
 )
