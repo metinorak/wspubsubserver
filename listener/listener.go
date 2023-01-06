@@ -4,17 +4,16 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/gorilla/websocket"
-	"github.com/metinorak/wspubsub"
+	"github.com/metinorak/varto"
 	"github.com/metinorak/wspubsubserver/entity"
 	"github.com/rs/zerolog"
 )
 
-func ListenConnection(ctx context.Context, conn *websocket.Conn, pubSubManager *wspubsub.VartoWS) {
+func ListenConnection(ctx context.Context, conn varto.Connection, pubSubManager *varto.Varto) {
 	logger := zerolog.Ctx(ctx)
 
 	for {
-		_, message, err := conn.ReadMessage()
+		message, err := conn.Read()
 		if err != nil {
 			logger.Error().Err(err).Msg("Error while reading message")
 			break

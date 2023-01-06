@@ -8,7 +8,8 @@ import (
 
 	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
-	"github.com/metinorak/wspubsub"
+	"github.com/metinorak/varto"
+	"github.com/metinorak/wspubsubserver/entity"
 	"github.com/metinorak/wspubsubserver/listener"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/pkgerrors"
@@ -53,7 +54,7 @@ func run(ctx context.Context) error {
 	logger := zerolog.Ctx(ctx)
 
 	// Create a new pubsub manager instance
-	pubSubManager := wspubsub.New(nil)
+	pubSubManager := varto.New(nil)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
@@ -64,14 +65,18 @@ func run(ctx context.Context) error {
 			return
 		}
 
+		vartoConn := &entity.VartoConnectionAdapter{
+			Connection: conn,
+		}
+
 		conn.SetCloseHandler(func(code int, text string) error {
-			return pubSubManager.RemoveConnection(conn)
+			return pubSubManager.RemoveConnection(vartoConn)
 		})
 
-		pubSubManager.AddConnection(conn)
+		pubSubManager.AddConnection(vartoConn)
 
 		// Listen the connection
-		go listener.ListenConnection(ctx, conn, pubSubManager)
+		go listener.ListenConnection(ctx, vartoConn, pubSubManager)
 	})
 
 	logger.Info().Msgf("Server is listening on port %s", port)

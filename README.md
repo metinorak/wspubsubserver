@@ -1,5 +1,7 @@
 # Websocket PubSub server written in Go
-* This project uses [gorilla/websocket](https://github.com/gorilla/websocket) to implement a simple PubSub server. And for managing the connections, subscriptions and publishing messages, it uses [metinorak/varto](https://github.com/metinorak/varto) package and its gorilla ws wrapper package [metinorak/wspubsub](https://github.com/metinorak/wspubsub).
+* This project uses [gorilla/websocket](https://github.com/gorilla/websocket) to implement a simple PubSub server. And for managing the connections, subscriptions and publishing messages, it uses [metinorak/varto](https://github.com/metinorak/varto) package.
+
+* It wraps gorilla WebSocket connection into a struct and implements the `varto.Connection` interface. So it can be used as a connection type for varto pubsub manager.
 
 ## Usage
 * To run the server, you need to have Go installed on your machine. Then you can run the following command to start the server:
