@@ -85,3 +85,19 @@ func handleBroadcastToAll(conn varto.Connection, pubSubManager *varto.Varto, pay
 		})
 	}
 }
+
+func handleUnknown(conn varto.Connection, payload *entity.WsPayload) {
+	handleResponseMessage(conn, &entity.WsResponse{
+		Action:  payload.Action,
+		Message: "Action is not valid",
+		Status:  "ERROR",
+	})
+}
+
+func handleInvalidMessage(conn varto.Connection, payload *entity.WsPayload) {
+	handleResponseMessage(conn, &entity.WsResponse{
+		Action:  payload.Action,
+		Message: "Message format is not valid",
+		Status:  "ERROR",
+	})
+}
