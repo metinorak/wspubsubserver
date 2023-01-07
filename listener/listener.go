@@ -10,15 +10,6 @@ import (
 	"github.com/rs/zerolog"
 )
 
-func handleResponseMessage(conn varto.Connection, response *entity.WsResponse) {
-	bs, err := json.Marshal(response)
-	if err != nil {
-		conn.Write([]byte(err.Error()))
-	} else {
-		conn.Write(bs)
-	}
-}
-
 func ListenConnection(ctx context.Context, conn varto.Connection, pubSubManager *varto.Varto) {
 	logger := zerolog.Ctx(ctx)
 	defer func() {
@@ -43,71 +34,17 @@ func ListenConnection(ctx context.Context, conn varto.Connection, pubSubManager 
 		}
 
 		// make action case insensitive
-		action := strings.ToUpper(payload.Action)
+		payload.Action = strings.ToUpper(payload.Action)
 
-		switch action {
+		switch payload.Action {
 		case "SUBSCRIBE":
-			err := pubSubManager.Subscribe(conn, payload.Topic)
-			if err != nil {
-				handleResponseMessage(conn, &entity.WsResponse{
-					Action:  action,
-					Topic:   payload.Topic,
-					Message: err.Error(),
-					Status:  "ERROR",
-				})
-			} else {
-				handleResponseMessage(conn, &entity.WsResponse{
-					Action: action,
-					Topic:  payload.Topic,
-					Status: "OK",
-				})
-			}
+			handleSubscribe(conn, pubSubManager, &payload)
 		case "UNSUBSCRIBE":
-			err := pubSubManager.Unsubscribe(conn, payload.Topic)
-			if err != nil {
-				handleResponseMessage(conn, &entity.WsResponse{
-					Action:  action,
-					Topic:   payload.Topic,
-					Message: err.Error(),
-					Status:  "ERROR",
-				})
-			} else {
-				handleResponseMessage(conn, &entity.WsResponse{
-					Action: action,
-					Topic:  payload.Topic,
-					Status: "OK",
-				})
-			}
+			handleUnsubscribe(conn, pubSubManager, &payload)
 		case "PUBLISH":
-			err := pubSubManager.Publish(payload.Topic, []byte(payload.Message))
-			if err != nil {
-				handleResponseMessage(conn, &entity.WsResponse{
-					Action:  action,
-					Topic:   payload.Topic,
-					Message: err.Error(),
-					Status:  "ERROR",
-				})
-			} else {
-				handleResponseMessage(conn, &entity.WsResponse{
-					Action: action,
-					Topic:  payload.Topic,
-					Status: "OK",
-				})
-			}
+			handlePublish(conn, pubSubManager, &payload)
 		case "BROADCASTALL":
-			err := pubSubManager.BroadcastToAll([]byte(payload.Message))
-			if err != nil {
-				handleResponseMessage(conn, &entity.WsResponse{
-					Action:  action,
-					Message: err.Error(),
-					Status:  "ERROR",
-				})
-			} else {
-				handleResponseMessage(conn, &entity.WsResponse{
-					Action: action,
-					Status: "OK",
-				})
-			}
+			handleBroadcastToAll(conn, pubSubManager, &payload)
 		}
 	}
 }
