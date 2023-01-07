@@ -40,8 +40,6 @@ func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
 
 	pubSubManager.AddConnection(vartoConn)
 
-	ctx := r.Context()
-
 	// Listen the connection
-	go listener.ListenConnection(ctx, vartoConn, pubSubManager)
+	go listener.ListenConnection(r.Context(), vartoConn, pubSubManager)
 }
