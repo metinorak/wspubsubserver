@@ -15,6 +15,7 @@ var upgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
 		return true
 	},
+	EnableCompression: true,
 }
 
 var pubSubManager = varto.New(nil)
@@ -34,6 +35,8 @@ func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
 	conn.SetCloseHandler(func(code int, text string) error {
 		return pubSubManager.RemoveConnection(vartoConn)
 	})
+
+	conn.SetCompressionLevel(9)
 
 	pubSubManager.AddConnection(vartoConn)
 
