@@ -12,6 +12,8 @@ github.com/mattn/go-isatty v0.0.14 h1:yVuAays6BHfxijgZPzw+3Zlu5yQgKGP2/hcQbHb7S9
 github.com/mattn/go-isatty v0.0.14/go.mod h1:7GGIvUiUoEMVVmxf/4nioHXj79iQHKdU27kJ6hsGG94=
 github.com/metinorak/varto v0.0.0-20230106231707-7867db3d5479 h1:vzEV6nmNMJvdZYYsp7m0WjF8StmqNjfwnSV9AcWqZiY=
 github.com/metinorak/varto v0.0.0-20230106231707-7867db3d5479/go.mod h1:q2iggAqAJobtow9JTMzYRhHzebdGwQCs42/9UmPTP8E=
+github.com/metinorak/varto v0.0.0-20230107014553-0dffb15ef0c7 h1:KCkdmFKy0s5e9gtVE4VLOxh2Wi2MNRGNymfqqZmBFog=
+github.com/metinorak/varto v0.0.0-20230107014553-0dffb15ef0c7/go.mod h1:q2iggAqAJobtow9JTMzYRhHzebdGwQCs42/9UmPTP8E=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

@@ -12,6 +12,6 @@ require (
 require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/joho/godotenv v1.4.0
-	github.com/metinorak/varto v0.0.0-20230106231707-7867db3d5479
+	github.com/metinorak/varto v0.0.0-20230107014553-0dffb15ef0c7
 	github.com/rs/zerolog v1.28.0
 )
