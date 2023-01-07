@@ -38,13 +38,33 @@ func ListenConnection(ctx context.Context, conn varto.Connection, pubSubManager 
 
 		switch action {
 		case "SUBSCRIBE":
-			pubSubManager.Subscribe(conn, payload.Topic)
+			err := pubSubManager.Subscribe(conn, payload.Topic)
+			if err != nil {
+				conn.Write([]byte(err.Error()))
+			} else {
+				conn.Write([]byte("OK"))
+			}
 		case "UNSUBSCRIBE":
-			pubSubManager.Unsubscribe(conn, payload.Topic)
+			err := pubSubManager.Unsubscribe(conn, payload.Topic)
+			if err != nil {
+				conn.Write([]byte(err.Error()))
+			} else {
+				conn.Write([]byte("OK"))
+			}
 		case "PUBLISH":
-			pubSubManager.Publish(payload.Topic, []byte(payload.Message))
+			err := pubSubManager.Publish(payload.Topic, []byte(payload.Message))
+			if err != nil {
+				conn.Write([]byte(err.Error()))
+			} else {
+				conn.Write([]byte("OK"))
+			}
 		case "BROADCASTALL":
-			pubSubManager.BroadcastToAll([]byte(payload.Message))
+			err := pubSubManager.BroadcastToAll([]byte(payload.Message))
+			if err != nil {
+				conn.Write([]byte(err.Error()))
+			} else {
+				conn.Write([]byte("OK"))
+			}
 		}
 	}
 }
