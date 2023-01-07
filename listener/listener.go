@@ -10,6 +10,15 @@ import (
 	"github.com/rs/zerolog"
 )
 
+func handleResponseMessage(conn varto.Connection, response *entity.WsResponse) {
+	bs, err := json.Marshal(response)
+	if err != nil {
+		conn.Write([]byte(err.Error()))
+	} else {
+		conn.Write(bs)
+	}
+}
+
 func ListenConnection(ctx context.Context, conn varto.Connection, pubSubManager *varto.Varto) {
 	logger := zerolog.Ctx(ctx)
 	defer func() {
@@ -40,30 +49,64 @@ func ListenConnection(ctx context.Context, conn varto.Connection, pubSubManager 
 		case "SUBSCRIBE":
 			err := pubSubManager.Subscribe(conn, payload.Topic)
 			if err != nil {
-				conn.Write([]byte(err.Error()))
+				handleResponseMessage(conn, &entity.WsResponse{
+					Action:  action,
+					Topic:   payload.Topic,
+					Message: err.Error(),
+					Status:  "ERROR",
+				})
 			} else {
-				conn.Write([]byte("OK"))
+				handleResponseMessage(conn, &entity.WsResponse{
+					Action: action,
+					Topic:  payload.Topic,
+					Status: "OK",
+				})
 			}
 		case "UNSUBSCRIBE":
 			err := pubSubManager.Unsubscribe(conn, payload.Topic)
 			if err != nil {
-				conn.Write([]byte(err.Error()))
+				handleResponseMessage(conn, &entity.WsResponse{
+					Action:  action,
+					Topic:   payload.Topic,
+					Message: err.Error(),
+					Status:  "ERROR",
+				})
 			} else {
-				conn.Write([]byte("OK"))
+				handleResponseMessage(conn, &entity.WsResponse{
+					Action: action,
+					Topic:  payload.Topic,
+					Status: "OK",
+				})
 			}
 		case "PUBLISH":
 			err := pubSubManager.Publish(payload.Topic, []byte(payload.Message))
 			if err != nil {
-				conn.Write([]byte(err.Error()))
+				handleResponseMessage(conn, &entity.WsResponse{
+					Action:  action,
+					Topic:   payload.Topic,
+					Message: err.Error(),
+					Status:  "ERROR",
+				})
 			} else {
-				conn.Write([]byte("OK"))
+				handleResponseMessage(conn, &entity.WsResponse{
+					Action: action,
+					Topic:  payload.Topic,
+					Status: "OK",
+				})
 			}
 		case "BROADCASTALL":
 			err := pubSubManager.BroadcastToAll([]byte(payload.Message))
 			if err != nil {
-				conn.Write([]byte(err.Error()))
+				handleResponseMessage(conn, &entity.WsResponse{
+					Action:  action,
+					Message: err.Error(),
+					Status:  "ERROR",
+				})
 			} else {
-				conn.Write([]byte("OK"))
+				handleResponseMessage(conn, &entity.WsResponse{
+					Action: action,
+					Status: "OK",
+				})
 			}
 		}
 	}
