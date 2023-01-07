@@ -19,7 +19,7 @@ var upgrader = websocket.Upgrader{
 
 var pubSubManager = varto.New(nil)
 
-func HandleWebsocket(w http.ResponseWriter, r *http.Request) {
+func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
