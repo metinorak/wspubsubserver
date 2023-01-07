@@ -29,7 +29,7 @@ func ListenConnection(ctx context.Context, conn varto.Connection, pubSubManager 
 		var payload entity.WsPayload
 		err = json.Unmarshal(message, &payload)
 		if err != nil {
-			handleInvalidMessage(conn, &payload)
+			handleInvalidMessage(conn, message)
 			continue
 		}
 

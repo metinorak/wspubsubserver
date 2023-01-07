@@ -2,6 +2,7 @@ package listener
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/metinorak/varto"
 	"github.com/metinorak/wspubsubserver/entity"
@@ -94,10 +95,10 @@ func handleUnknown(conn varto.Connection, payload *entity.WsPayload) {
 	})
 }
 
-func handleInvalidMessage(conn varto.Connection, payload *entity.WsPayload) {
+func handleInvalidMessage(conn varto.Connection, message []byte) {
 	handleResponseMessage(conn, &entity.WsResponse{
-		Action:  payload.Action,
-		Message: "Message format is not valid",
+		Action:  "UNKNOWN",
+		Message: fmt.Sprintf("Invalid message: %s", string(message)),
 		Status:  "ERROR",
 	})
 }
