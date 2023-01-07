@@ -29,7 +29,10 @@ func ListenConnection(ctx context.Context, conn varto.Connection, pubSubManager 
 		var payload entity.WsPayload
 		err = json.Unmarshal(message, &payload)
 		if err != nil {
-			logger.Error().Err(err).Msg("Error while unmarshalling message")
+			handleResponseMessage(conn, &entity.WsResponse{
+				Message: "Message format is not valid",
+				Status:  "ERROR",
+			})
 			continue
 		}
 
@@ -45,6 +48,11 @@ func ListenConnection(ctx context.Context, conn varto.Connection, pubSubManager 
 			handlePublish(conn, pubSubManager, &payload)
 		case "BROADCASTALL":
 			handleBroadcastToAll(conn, pubSubManager, &payload)
+		default:
+			handleResponseMessage(conn, &entity.WsResponse{
+				Message: "Action is not valid",
+				Status:  "ERROR",
+			})
 		}
 	}
 }
