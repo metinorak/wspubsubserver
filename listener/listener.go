@@ -12,6 +12,12 @@ import (
 
 func ListenConnection(ctx context.Context, conn varto.Connection, pubSubManager *varto.Varto) {
 	logger := zerolog.Ctx(ctx)
+	defer func() {
+		err := pubSubManager.RemoveConnection(conn)
+		if err != nil {
+			logger.Error().Err(err).Msg("Error while removing connection")
+		}
+	}()
 
 	for {
 		message, err := conn.Read()
