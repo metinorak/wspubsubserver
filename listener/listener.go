@@ -3,6 +3,7 @@ package listener
 import (
 	"context"
 	"encoding/json"
+	"strings"
 
 	"github.com/metinorak/varto"
 	"github.com/metinorak/wspubsubserver/entity"
@@ -26,7 +27,10 @@ func ListenConnection(ctx context.Context, conn varto.Connection, pubSubManager 
 			continue
 		}
 
-		switch payload.Action {
+		// make action case insensitive
+		action := strings.ToUpper(payload.Action)
+
+		switch action {
 		case "SUBSCRIBE":
 			pubSubManager.Subscribe(conn, payload.Topic)
 		case "UNSUBSCRIBE":

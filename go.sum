@@ -10,8 +10,6 @@ github.com/mattn/go-colorable v0.1.12 h1:jF+Du6AlPIjs2BiUiQlKOX0rt3SujHxPnksPKZb
 github.com/mattn/go-colorable v0.1.12/go.mod h1:u5H1YNBxpqRaxsYJYSkiCWKzEfiAb1Gb520KVy5xxl4=
 github.com/mattn/go-isatty v0.0.14 h1:yVuAays6BHfxijgZPzw+3Zlu5yQgKGP2/hcQbHb7S9Y=
 github.com/mattn/go-isatty v0.0.14/go.mod h1:7GGIvUiUoEMVVmxf/4nioHXj79iQHKdU27kJ6hsGG94=
-github.com/metinorak/varto v0.0.0-20230105184204-2b098978bc1b h1:S6KozjCsxgaSsu1Pnc1xqGsAak/Cc1unfJBOTaLQcPA=
-github.com/metinorak/varto v0.0.0-20230105184204-2b098978bc1b/go.mod h1:q2iggAqAJobtow9JTMzYRhHzebdGwQCs42/9UmPTP8E=
 github.com/metinorak/varto v0.0.0-20230106231707-7867db3d5479 h1:vzEV6nmNMJvdZYYsp7m0WjF8StmqNjfwnSV9AcWqZiY=
 github.com/metinorak/varto v0.0.0-20230106231707-7867db3d5479/go.mod h1:q2iggAqAJobtow9JTMzYRhHzebdGwQCs42/9UmPTP8E=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=

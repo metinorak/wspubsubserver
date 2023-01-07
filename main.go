@@ -5,12 +5,11 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"os/signal"
 
 	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
-	"github.com/metinorak/varto"
-	"github.com/metinorak/wspubsubserver/entity"
-	"github.com/metinorak/wspubsubserver/listener"
+	"github.com/metinorak/wspubsubserver/handler"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/pkgerrors"
 )
@@ -23,8 +22,6 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-var logger zerolog.Logger
-
 // env variables
 var (
 	port = "8080"
@@ -32,8 +29,6 @@ var (
 
 func init() {
 	zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
-	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
-	logger = zerolog.New(os.Stdout).With().Timestamp().Logger()
 
 	godotenv.Load()
 
@@ -43,47 +38,38 @@ func init() {
 }
 
 func main() {
-	ctx := logger.WithContext(context.Background())
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	defer stop()
+
+	logWriter := zerolog.SyncWriter(os.Stdout)
+	if fileInfo, _ := os.Stdout.Stat(); (fileInfo.Mode() & os.ModeCharDevice) == 0 {
+		logWriter = zerolog.NewConsoleWriter()
+	}
+
+	logger := zerolog.New(logWriter).With().Caller().Timestamp().Logger()
+	ctx = logger.WithContext(ctx)
 
 	if err := run(ctx); err != nil {
-		logger.Fatal().Err(err).Msg("Server is shutting down")
+		logger.Fatal().Stack().Err(err).Msgf("program exited with an error: %+v", err)
 	}
 }
 
 func run(ctx context.Context) error {
 	logger := zerolog.Ctx(ctx)
-
-	// Create a new pubsub manager instance
-	pubSubManager := varto.New(nil)
-
-	mux := http.NewServeMux()
-	mux.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		conn, err := upgrader.Upgrade(w, r, nil)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(err.Error()))
-			return
-		}
-
-		vartoConn := &entity.VartoConnectionAdapter{
-			Connection: conn,
-		}
-
-		conn.SetCloseHandler(func(code int, text string) error {
-			return pubSubManager.RemoveConnection(vartoConn)
-		})
-
-		pubSubManager.AddConnection(vartoConn)
-
-		// Listen the connection
-		go listener.ListenConnection(ctx, vartoConn, pubSubManager)
-	})
+	router := handler.NewRouter()
 
 	logger.Info().Msgf("Server is listening on port %s", port)
 
-	if err := http.ListenAndServe(fmt.Sprintf(":%s", port), mux); err != nil {
-		logger.Error().Err(err).Msg("Server is shutting down")
-	}
+	chErr := make(chan error, 1)
 
-	return nil
+	go func() {
+		chErr <- http.ListenAndServe(fmt.Sprintf(":%s", port), router)
+	}()
+
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case err := <-chErr:
+		return err
+	}
 }
