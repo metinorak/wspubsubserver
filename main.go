@@ -7,25 +7,13 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
 	"github.com/metinorak/wspubsubserver/handler"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/pkgerrors"
 )
 
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-	CheckOrigin: func(r *http.Request) bool {
-		return true
-	},
-}
-
-// env variables
-var (
-	port = "8080"
-)
+var port = "8080"
 
 func init() {
 	zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
